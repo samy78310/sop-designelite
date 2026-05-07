@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import { signOut } from "next-auth/react";
 import {
   LayoutDashboard,
@@ -11,6 +12,8 @@ import {
   Settings,
   LogOut,
   ExternalLink,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +27,7 @@ const navItems = [
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
 
   return (
     <aside className="fixed top-0 left-0 h-full w-[240px] bg-card border-r border-border flex flex-col z-20">
@@ -63,6 +67,13 @@ export function AdminSidebar() {
 
       {/* Footer */}
       <div className="px-3 pb-4 space-y-0.5 border-t border-border pt-3">
+        <button
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition"
+        >
+          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          {theme === "dark" ? "Mode clair" : "Mode sombre"}
+        </button>
         <Link
           href="/docs"
           target="_blank"
