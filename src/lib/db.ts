@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import type { Category } from "@/types";
 export { sql };
 
 export async function getNavigation() {
@@ -136,7 +137,7 @@ export async function getAllArticlesAdmin() {
   return rows;
 }
 
-export async function getAllCategories() {
+export async function getAllCategories(): Promise<Category[]> {
   const { rows } = await sql`
     SELECT c.*, COUNT(a.id)::int as article_count
     FROM categories c
@@ -144,7 +145,7 @@ export async function getAllCategories() {
     GROUP BY c.id
     ORDER BY c.order_index ASC
   `;
-  return rows;
+  return rows as Category[];
 }
 
 export async function getVoteCounts(articleId: string) {
