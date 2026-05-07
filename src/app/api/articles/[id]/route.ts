@@ -44,6 +44,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   `;
 
   revalidatePath("/admin/articles");
+  revalidatePath("/docs", "layout");
   revalidatePath("/admin/categories");
   return NextResponse.json({ ok: true });
 }
@@ -54,6 +55,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
   await sql`DELETE FROM articles WHERE id = ${params.id}`;
   revalidatePath("/admin/articles");
+  revalidatePath("/docs", "layout");
   revalidatePath("/admin/categories");
   return NextResponse.json({ ok: true });
 }

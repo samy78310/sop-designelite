@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getNavigation } from "@/lib/db";
 import { DocsLayoutClient } from "@/components/docs/DocsLayoutClient";
 

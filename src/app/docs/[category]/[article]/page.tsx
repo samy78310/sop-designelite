@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
 import { getArticle, getAdjacentArticles } from "@/lib/db";
 import { ArticleContent } from "@/components/docs/ArticleContent";

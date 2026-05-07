@@ -18,6 +18,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   const newSlug = slugify(title);
   await sql`UPDATE categories SET title = ${title}, slug = ${newSlug} WHERE id = ${params.id}`;
   revalidatePath("/admin/categories");
+  revalidatePath("/docs", "layout");
   revalidatePath("/admin/articles");
   return NextResponse.json({ ok: true, slug: newSlug });
 }
@@ -28,6 +29,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
   await sql`DELETE FROM categories WHERE id = ${params.id}`;
   revalidatePath("/admin/categories");
+  revalidatePath("/docs", "layout");
   revalidatePath("/admin/articles");
   return NextResponse.json({ ok: true });
 }
