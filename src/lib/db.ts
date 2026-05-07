@@ -1,8 +1,10 @@
 import { sql } from "@vercel/postgres";
+import { unstable_noStore as noStore } from "next/cache";
 import type { Category } from "@/types";
 export { sql };
 
 export async function getNavigation() {
+  noStore();
   const { rows } = await sql`
     SELECT
       c.id as category_id,
@@ -50,6 +52,7 @@ export async function getNavigation() {
 }
 
 export async function getArticle(categorySlug: string, articleSlug: string) {
+  noStore();
   const { rows } = await sql`
     SELECT a.*, c.title as category_title, c.slug as category_slug
     FROM articles a
@@ -61,6 +64,7 @@ export async function getArticle(categorySlug: string, articleSlug: string) {
 }
 
 export async function getArticleById(id: string) {
+  noStore();
   const { rows } = await sql`
     SELECT a.*, c.title as category_title, c.slug as category_slug
     FROM articles a
@@ -72,6 +76,7 @@ export async function getArticleById(id: string) {
 }
 
 export async function getFirstPublishedArticle() {
+  noStore();
   const { rows } = await sql`
     SELECT a.slug as article_slug, c.slug as category_slug
     FROM articles a
@@ -128,6 +133,7 @@ export async function searchArticles(query: string) {
 }
 
 export async function getAllArticlesAdmin() {
+  noStore();
   const { rows } = await sql`
     SELECT a.*, c.title as category_title, c.slug as category_slug
     FROM articles a
@@ -138,6 +144,7 @@ export async function getAllArticlesAdmin() {
 }
 
 export async function getAllCategories(): Promise<Category[]> {
+  noStore();
   const { rows } = await sql`
     SELECT c.*, COUNT(a.id)::int as article_count
     FROM categories c
