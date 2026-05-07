@@ -21,12 +21,24 @@ export function ArticleContent({ content }: ArticleContentProps) {
       "class",
       "width",
       "height",
+      "data-claap-id",
     ],
     FORCE_BODY: false,
   });
 
   useEffect(() => {
     if (!ref.current) return;
+
+    // Fix Claap embed iframes: if src contains the full slug format, extract the real clip ID
+    const claapIframes = ref.current.querySelectorAll<HTMLIFrameElement>('iframe[src*="app.claap.io/embed/"]');
+    claapIframes.forEach((iframe) => {
+      const src = iframe.src;
+      // Match embed URLs where the ID contains "-c-" (old format with full slug)
+      const cMatch = src.match(/app\.claap\.io\/embed\/.*-c-(.+)$/);
+      if (cMatch) {
+        iframe.src = `https://app.claap.io/embed/${cMatch[1]}`;
+      }
+    });
 
     // Add anchor links to h2/h3 headings
     const headings = ref.current.querySelectorAll("h2, h3");

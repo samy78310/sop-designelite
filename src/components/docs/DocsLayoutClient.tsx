@@ -19,7 +19,7 @@ export function DocsLayoutClient({ navigation: initialNavigation, children }: Do
 
   const fetchNavigation = useCallback(async () => {
     try {
-      const res = await fetch("/api/navigation", { cache: "no-store" });
+      const res = await fetch(`/api/navigation?t=${Date.now()}`, { cache: "no-store" });
       if (res.ok) {
         const data = await res.json();
         setNavigation(data);

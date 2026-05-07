@@ -25,6 +25,11 @@ export function formatDate(date: string | Date): string {
 }
 
 export function extractClaapId(url: string): string | null {
-  const match = url.match(/app\.claap\.io\/[^/]+\/([^/?#]+)/);
-  return match ? match[1] : null;
+  // Match the full slug after the workspace, e.g. "le-role-...-c-SqPUB9WmVL-P7xPfL5hWXdo"
+  const slugMatch = url.match(/app\.claap\.io\/[^/]+\/([^/?#]+)/);
+  if (!slugMatch) return null;
+  const slug = slugMatch[1];
+  // Extract clip ID: everything after the last "-c-" separator
+  const cMatch = slug.match(/-c-(.+)$/);
+  return cMatch ? cMatch[1] : slug;
 }
