@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 247 77% 61%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 247 77% 61%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 5.1%;
+    --foreground: 210 20% 98%;
+    --card: 0 0% 7%;
+    --card-foreground: 210 20% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 247 77% 65%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 247 77% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Article content styles */
+.article-content {
+  @apply text-[15px] leading-7 text-foreground;
+}
+
+.article-content h1 {
+  @apply text-3xl font-bold mt-8 mb-4 text-foreground;
+}
+
+.article-content h2 {
+  @apply text-xl font-semibold mt-8 mb-3 text-foreground scroll-mt-20;
+}
+
+.article-content h3 {
+  @apply text-lg font-semibold mt-6 mb-2 text-foreground scroll-mt-20;
+}
+
+.article-content p {
+  @apply mb-4 text-foreground/90;
+}
+
+.article-content ul {
+  @apply mb-4 ml-5 list-disc space-y-1;
+}
+
+.article-content ol {
+  @apply mb-4 ml-5 list-decimal space-y-1;
+}
+
+.article-content li {
+  @apply text-foreground/90;
+}
+
+.article-content a {
+  @apply text-brand-500 underline underline-offset-2 hover:text-brand-600;
+}
+
+.article-content blockquote {
+  @apply border-l-4 border-brand-300 pl-4 italic text-muted-foreground my-4;
+}
+
+.article-content pre {
+  @apply bg-muted rounded-lg p-4 overflow-x-auto my-4 text-sm;
+}
+
+.article-content code:not(pre code) {
+  @apply bg-muted text-foreground px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.article-content hr {
+  @apply border-border my-8;
+}
+
+.article-content img {
+  @apply rounded-xl my-6 w-full;
+}
+
+/* Callout boxes */
+.callout-info {
+  @apply bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 my-4 flex gap-3;
+}
+
+.callout-warning {
+  @apply bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-4 my-4 flex gap-3;
+}
+
+.callout-info .callout-icon {
+  @apply text-blue-500 text-lg flex-shrink-0 mt-0.5;
+}
+
+.callout-warning .callout-icon {
+  @apply text-orange-500 text-lg flex-shrink-0 mt-0.5;
+}
+
+.callout-info .callout-content {
+  @apply text-blue-800 dark:text-blue-200 text-sm leading-relaxed;
+}
+
+.callout-warning .callout-content {
+  @apply text-orange-800 dark:text-orange-200 text-sm leading-relaxed;
+}
+
+/* Claap embed */
+.claap-embed-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 24px 0;
+}
+
+.claap-embed-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Tiptap editor styles */
+.ProseMirror {
+  @apply outline-none min-h-[400px] text-[15px] leading-7;
+}
+
+.ProseMirror h1 { @apply text-3xl font-bold mt-6 mb-3; }
+.ProseMirror h2 { @apply text-xl font-semibold mt-6 mb-2; }
+.ProseMirror h3 { @apply text-lg font-semibold mt-4 mb-2; }
+.ProseMirror p { @apply mb-3; }
+.ProseMirror ul { @apply mb-3 ml-5 list-disc space-y-1; }
+.ProseMirror ol { @apply mb-3 ml-5 list-decimal space-y-1; }
+.ProseMirror blockquote { @apply border-l-4 border-brand-300 pl-4 italic text-muted-foreground my-3; }
+.ProseMirror pre { @apply bg-muted rounded-lg p-4 overflow-x-auto my-3 text-sm; }
+.ProseMirror code:not(pre code) { @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono; }
+.ProseMirror hr { @apply border-border my-6; }
+.ProseMirror img { @apply rounded-xl my-4 max-w-full; }
+.ProseMirror a { @apply text-brand-500 underline; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground pointer-events-none float-left h-0;
+  content: attr(data-placeholder);
+}
+
+/* Sidebar nav scrollbar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+/* Search modal */
+.search-backdrop {
+  backdrop-filter: blur(4px);
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.15s ease-out;
+}
