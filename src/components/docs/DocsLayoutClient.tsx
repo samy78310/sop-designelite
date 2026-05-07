@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { DocsSidebar } from "./DocsSidebar";
 import { DocsTopNav } from "./DocsTopNav";
 import { SearchModal } from "./SearchModal";
@@ -11,8 +12,27 @@ interface DocsLayoutClientProps {
   children: React.ReactNode;
 }
 
-export function DocsLayoutClient({ navigation, children }: DocsLayoutClientProps) {
+export function DocsLayoutClient({ navigation: initialNavigation, children }: DocsLayoutClientProps) {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [navigation, setNavigation] = useState<NavCategory[]>(initialNavigation);
+  const pathname = usePathname();
+
+  const fetchNavigation = useCallback(async () => {
+    try {
+      const res = await fetch("/api/navigation", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        setNavigation(data);
+      }
+    } catch {
+      // keep current navigation on error
+    }
+  }, []);
+
+  // Refresh navigation on every page change
+  useEffect(() => {
+    fetchNavigation();
+  }, [pathname, fetchNavigation]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
